@@ -1,16 +1,14 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Card, Flex, Form, Input } from "antd";
+import { useLogin } from "../hooks/useLogin";
 
 type FieldType = {
-  username: string;
+  email: string;
   password: string;
 };
 
 export const LoginForm = () => {
-  const onFinish = (values: FieldType) => {
-    console.log(values);
-  };
-
+  const { login, isLoading, error, clearError } = useLogin();
   return (
     <Flex justify="center" align="center" style={{ minHeight: "100vh" }}>
       <Card style={{ maxWidth: 360, width: "100%" }}>
@@ -19,13 +17,15 @@ export const LoginForm = () => {
           layout="vertical"
           validateTrigger="onBlur"
           requiredMark={false}
-          onFinish={onFinish}
+          onFinish={login}
+          onValuesChange={clearError}
+          disabled={isLoading}
         >
           <Form.Item<FieldType>
-            name="username"
-            rules={[{ required: true, message: "Введите логин" }]}
+            name="email"
+            rules={[{ required: true, message: "Введите email" }]}
           >
-            <Input prefix={<UserOutlined />} placeholder="Логин" />
+            <Input prefix={<UserOutlined />} placeholder="admin@test.com" />
           </Form.Item>
           <Form.Item<FieldType>
             name="password"
@@ -34,15 +34,15 @@ export const LoginForm = () => {
               { min: 6, message: "Пароль должен быть не менее 6 символов" },
             ]}
           >
-            <Input.Password prefix={<LockOutlined />} placeholder="Пароль" />
+            <Input.Password prefix={<LockOutlined />} placeholder="123456" />
           </Form.Item>
 
           <Form.Item
             label={null}
-            help="Неверный логин или пароль"
-            validateStatus="error"
+            help={error}
+            validateStatus={error ? "error" : undefined}
           >
-            <Button type="primary" htmlType="submit" block>
+            <Button type="primary" htmlType="submit" block loading={isLoading}>
               Вход
             </Button>
           </Form.Item>
