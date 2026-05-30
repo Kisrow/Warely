@@ -1,6 +1,7 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Card, Flex, Form, Input } from "antd";
 import { useLogin } from "../hooks/useLogin";
+import { useNavigate } from "react-router-dom";
 
 type FieldType = {
   email: string;
@@ -8,7 +9,14 @@ type FieldType = {
 };
 
 export const LoginForm = () => {
+  const navigate = useNavigate();
   const { login, isLoading, error, clearError } = useLogin();
+  const onSubmit = async (values: FieldType) => {
+    const response = await login(values);
+    if (response) {
+      navigate("/");
+    }
+  };
   return (
     <Flex justify="center" align="center" style={{ minHeight: "100vh" }}>
       <Card style={{ maxWidth: 360, width: "100%" }}>
@@ -17,7 +25,7 @@ export const LoginForm = () => {
           layout="vertical"
           validateTrigger="onBlur"
           requiredMark={false}
-          onFinish={login}
+          onFinish={onSubmit}
           onValuesChange={clearError}
           disabled={isLoading}
         >
