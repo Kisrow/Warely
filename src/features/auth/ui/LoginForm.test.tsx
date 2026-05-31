@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import { describe, expect, it, vi } from "vitest";
 import { LoginForm } from "./LoginForm";
 import { useLogin } from "../hooks/useLogin";
@@ -18,7 +19,11 @@ describe("auth/ui/LoginForm", () => {
       clearError: vi.fn(),
     });
 
-    render(<LoginForm />);
+    render(
+      <MemoryRouter>
+        <LoginForm />
+      </MemoryRouter>,
+    );
 
     expect(screen.getByText("Неверный логин или пароль")).toBeInTheDocument();
   });
@@ -34,7 +39,11 @@ describe("auth/ui/LoginForm", () => {
       clearError,
     });
 
-    render(<LoginForm />);
+    render(
+      <MemoryRouter>
+        <LoginForm />
+      </MemoryRouter>,
+    );
 
     fireEvent.change(screen.getAllByPlaceholderText("admin@test.com")[0], {
       target: { value: "test@example.com" },
@@ -42,7 +51,7 @@ describe("auth/ui/LoginForm", () => {
     fireEvent.change(screen.getAllByPlaceholderText("123456")[0], {
       target: { value: "secret123" },
     });
-    fireEvent.click(screen.getByRole("button"));
+    fireEvent.click(screen.getByRole("button", { name: "Вход" }));
 
     await waitFor(() => {
       expect(login).toHaveBeenCalledWith({
