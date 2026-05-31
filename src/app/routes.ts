@@ -1,4 +1,4 @@
 export const AppRoutes = {
-    HOME: "/",
-    LOGIN: "/auth/login",
+  HOME: "/",
+  LOGIN: "/auth/login",
 } as const;
