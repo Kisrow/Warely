@@ -1,0 +1,15 @@
+.sidebarToggleButton {
+  font-size: 16px;
+  width: 64px;
+  height: 64px;
+}
+
+.header {
+  padding: 0;
+  background-color: #ffffff;
+}
+
+.content {
+  background-color: #ffffff;
+  border-radius: 12px;
+}
