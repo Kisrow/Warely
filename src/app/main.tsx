@@ -12,12 +12,7 @@ import "@/index.css";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter
-        future={{
-          v7_startTransition: true,
-          v7_relativeSplatPath: true,
-        }}
-      >
+      <BrowserRouter>
         <App />
       </BrowserRouter>
     </QueryClientProvider>
