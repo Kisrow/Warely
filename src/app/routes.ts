@@ -2,11 +2,6 @@ export const AppRoutes = {
   HOME: '/',
   LOGIN: '/auth/login',
   PRODUCTS: '/products',
-  RECEIPTS: '/receipts',
-  TRANSFERS: '/transfers',
-  WRITEOFFS: '/writeoffs',
-  INVENTORY: '/inventory',
+  OPERATIONS: '/operations',
   WAREHOUSES: '/warehouses',
-  SUPPLIERS: '/suppliers',
-  REPORTS: '/reports',
 } as const;
